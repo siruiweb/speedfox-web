@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![speed_logo_black_background](https://github.com/user-attachments/assets/aed5aa60-575a-4d1c-9878-bb3f7f0073e5)
 
 # SpeedFox 极狐游戏加速器
@@ -101,3 +102,7 @@ npm run start
 ![image](https://raw.githubusercontent.com/sunnny516/speedfox_sell/main/QQ%E6%88%AA%E5%9B%BE20231217142010.png)
 ![image](https://raw.githubusercontent.com/sunnny516/speedfox_sell/main/QQ%E6%88%AA%E5%9B%BE20231217141058.png)
 ![image](https://raw.githubusercontent.com/sunnny516/speedfox_sell/main/QQ%E6%88%AA%E5%9B%BE20231217142108.png)
+=======
+# speedfox-web
+锐野优商加速器官网
+>>>>>>> 9ce6cb11450b53f2938ee4fc3916bebcb0d6bbed
