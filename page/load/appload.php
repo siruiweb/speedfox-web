@@ -73,7 +73,7 @@ $productdata = get_oem_config();
       <div class="download-title"><?php echo $productdata['title'];?></div>
       <div class="download-desc">畅玩全球游戏，从此刻开始</div>
       
-      <a href="https://github.com/sunnny516/speedfox/releases/download/4.0.9/Setup4.0.9.exe" class="download-btn" target="_blank">
+      <a href="http://global.ruiye.top/锐野优商游戏加速器 Setup 4.0.8.exe" class="download-btn" target="_blank">
         Windows 版下载
       </a>
       

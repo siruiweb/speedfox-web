@@ -1,5 +1,5 @@
 <?
-require_once('../../../../api/System.php');
+require_once("../../api/System.php");
 $debug = time();// 预防js和css缓存
 $time = sys_time();
 
@@ -22,7 +22,7 @@ mysqli_query($conn,"INSERT INTO `bill` (`uid`, `order`, `product`, `money`, `mod
 
 
 
-$payurl = "https://api.jihujiasuqi.com/apps/pay/alipay/pay_m.php?pay_order=" .$order ."&pay_money=". $money;
+$payurl = "https://global.ruiye.top/apps/pay/alipay/pay_m.php?pay_order=" .$order ."&pay_money=". $money;
 ?>
 
 

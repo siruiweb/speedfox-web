@@ -1,4 +1,4 @@
-ï»¿<?php
+<?php
 header('Content-Type: text/html; charset=utf-8');
 require_once('../../api/Mock.php');
 $productdata = get_oem_config();
@@ -8,7 +8,7 @@ $productdata = get_oem_config();
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ç™»å½•/æ³¨å†Œ - <?php echo $productdata['title'];?></title>
+  <title>µÇÂ¼/×¢²á - <?php echo $productdata['title'];?></title>
   <link href="../../static/layui/css/layui.css" rel="stylesheet">
   <style>
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -52,81 +52,116 @@ $productdata = get_oem_config();
     <div class="login-logo">
       <img src="<?php echo $productdata['logo'];?>" alt="logo">
     </div>
-    <div class="login-title">æ¬¢è¿ä½¿ç”¨</div>
+    <div class="login-title">»¶Ó­Ê¹ÓÃ</div>
     
     <div class="tabs">
-      <div class="tab active" onclick="switchTab('login')">ç™»å½•</div>
-      <div class="tab" onclick="switchTab('register')">æ³¨å†Œ</div>
+      <div class="tab active" onclick="switchTab('login')">µÇÂ¼</div>
+      <div class="tab" onclick="switchTab('register')">×¢²á</div>
     </div>
     
     <div id="loginForm" class="tab-content active">
       <form onsubmit="return doLogin()">
         <div class="form-group">
-          <label>ç”¨æˆ·å</label>
-          <input type="text" name="username" placeholder="è¯·è¾“å…¥ç”¨æˆ·å" required>
+          <label>ÓÃ»§Ãû</label>
+          <input type="text" name="username" placeholder="ÇëÊäÈëÓÃ»§Ãû" required>
         </div>
         <div class="form-group">
-          <label>å¯†ç </label>
-          <input type="password" name="password" placeholder="è¯·è¾“å…¥å¯†ç " required>
+          <label>ÃÜÂë</label>
+          <input type="password" name="password" placeholder="ÇëÊäÈëÃÜÂë" required>
         </div>
-        <button type="submit" class="login-btn">ç™» å½•</button>
+        <button type="submit" class="login-btn">µÇ Â¼</button>
       </form>
     </div>
     
     <div id="registerForm" class="tab-content">
       <form onsubmit="return doRegister()">
         <div class="form-group">
-          <label>ç”¨æˆ·å</label>
-          <input type="text" name="username" placeholder="è¯·è¾“å…¥ç”¨æˆ·å" required>
+          <label>ÓÃ»§Ãû</label>
+          <input type="text" name="username" placeholder="ÇëÊäÈëÓÃ»§Ãû" required>
         </div>
         <div class="form-group">
-          <label>é‚®ç®±</label>
-          <input type="email" name="email" placeholder="è¯·è¾“å…¥é‚®ç®±" required>
+          <label>ÓÊÏä</label>
+          <input type="email" name="email" placeholder="ÇëÊäÈëÓÊÏä" required>
         </div>
         <div class="form-group">
-          <label>å¯†ç </label>
-          <input type="password" name="password" placeholder="è¯·è¾“å…¥å¯†ç " required>
+          <label>ÃÜÂë</label>
+          <input type="password" name="password" placeholder="ÇëÊäÈëÃÜÂë" required>
         </div>
         <div class="form-group">
-          <label>ç¡®è®¤å¯†ç </label>
-          <input type="password" name="confirm_password" placeholder="è¯·å†æ¬¡è¾“å…¥å¯†ç " required>
+          <label>È·ÈÏÃÜÂë</label>
+          <input type="password" name="confirm_password" placeholder="ÇëÔÙ´ÎÊäÈëÃÜÂë" required>
         </div>
-        <button type="submit" class="login-btn">æ³¨ å†Œ</button>
+        <button type="submit" class="login-btn">×¢ ²á</button>
       </form>
     </div>
     
     <div class="login-footer">
-      <a href="#">å¿˜è®°å¯†ç ï¼Ÿ</a>
+      <a href="#">Íü¼ÇÃÜÂë£¿</a>
     </div>
     
     <div class="back-home">
-      <a href="../../index.php">â† è¿”å›é¦–é¡µ</a>
+      <a href="../../index.php">¡û ·µ»ØÊ×Ò³</a>
     </div>
   </div>
   
-  <script>
-  function switchTab(tab) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    
-    if (tab === 'login') {
-      document.querySelectorAll('.tab')[0].classList.add('active');
-      document.getElementById('loginForm').classList.add('active');
-    } else {
-      document.querySelectorAll('.tab')[1].classList.add('active');
-      document.getElementById('registerForm').classList.add('active');
-    }
-  }
   
-  function doLogin() {
-    alert('ç™»å½•åŠŸèƒ½éœ€è¦åç«¯APIæ”¯æŒï¼Œæ•¬è¯·æœŸå¾…ï¼');
-    return false;
+<script>
+var apiUrl = "http://global.banfan.tech/api/user/";
+
+function switchTab(tab) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+  if (tab === "login") {
+    document.querySelectorAll(".tab")[0].classList.add("active");
+    document.getElementById("loginForm").classList.add("active");
+  } else {
+    document.querySelectorAll(".tab")[1].classList.add("active");
+    document.getElementById("registerForm").classList.add("active");
   }
-  
-  function doRegister() {
-    alert('æ³¨å†ŒåŠŸèƒ½éœ€è¦åç«¯APIæ”¯æŒï¼Œæ•¬è¯·æœŸå¾…ï¼');
-    return false;
-  }
-  </script>
+}
+
+function doLogin() {
+  var username = document.querySelector("#loginForm input[name=username]").value;
+  var password = document.querySelector("#loginForm input[name=password]").value;
+  if (!username || !password) { alert("ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë"); return false; }
+  var formData = new FormData();
+  formData.append("account", username);
+  formData.append("password", password);
+  fetch(apiUrl + "login", { method: "POST", body: formData })
+  .then(r => r.json())
+  .then(data => {
+    if (data.code === 1) {
+      localStorage.setItem("token", data.data.userinfo.token);
+      localStorage.setItem("user_id", data.data.userinfo.id);
+      localStorage.setItem("username", data.data.userinfo.username);
+      alert("µÇÂ¼³É¹¦£¡");
+      location.href = "../../index.php";
+    } else { alert(data.msg); }
+  })
+  .catch(e => alert("µÇÂ¼Ê§°Ü£º" + e));
+  return false;
+}
+
+function doRegister() {
+  var username = document.querySelector("#registerForm input[name=username]").value;
+  var password = document.querySelector("#registerForm input[name=password]").value;
+  var email = document.querySelector("#registerForm input[name=email]").value;
+  var confirm = document.querySelector("#registerForm input[name=confirm_password]").value;
+  if (!username || !password) { alert("ÇëÌîĞ´ÍêÕûĞÅÏ¢"); return false; }
+  if (password !== confirm) { alert("Á½´ÎÃÜÂë²»Ò»ÖÂ"); return false; }
+  var formData = new FormData();
+  formData.append("username", username);
+  formData.append("password", password);
+  formData.append("email", email);
+  fetch(apiUrl + "register", { method: "POST", body: formData })
+  .then(r => r.json())
+  .then(data => {
+    if (data.code === 1) { alert("×¢²á³É¹¦£¬ÇëµÇÂ¼£¡"); switchTab("login"); }
+    else { alert(data.msg); }
+  })
+  .catch(e => alert("×¢²áÊ§°Ü£º" + e));
+  return false;
+}
+</script>
 </body>
 </html>

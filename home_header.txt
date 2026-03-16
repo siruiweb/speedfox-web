@@ -1,0 +1,8 @@
+﻿<?php
+$debug = time();
+require_once("api/System.php");
+$product = $_GET["product"];
+$productdata = mysqli_query($conn, "select * from fa_ruyi_oem where name = `"$product`"");
+$productdata = mysqli_fetch_assoc($productdata);
+?>
+

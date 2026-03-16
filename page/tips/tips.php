@@ -54,7 +54,7 @@ marquee{
 
 <div class="bg">
     <div class="box">
-        <img src="https://api.jihujiasuqi.com/logo.png" class="logo" alt="logo">
+        <img src="http://global.ruiye.top/logo.png" class="logo" alt="logo">
         <h2></h2>
     <!--<h2>注意,时长不足60分钟</h2>-->
     </div>
@@ -78,7 +78,7 @@ function getUrlParams() {
 }
 
 
-$.getJSON('https://api.jihujiasuqi.com/api/v2/?mode=get_oem&product=' + getUrlParams().product ).done(function(data) {
+$.getJSON('http://global.ruiye.top/api/v2/?mode=get_oem&product=' + getUrlParams().product ).done(function(data) {
     $('.logo').attr('src', data.logo);
 });
 
