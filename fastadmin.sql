@@ -1,54 +1,34 @@
 -- ----------------------------
--- »Ò“∞”≈…Ãº”ÀŸ∆˜ - FastAdmin ˝æ›ø‚±ÌΩ·ππ
+-- ÈîêÈáé‰ºòÂïÜÂä†ÈÄüÂô® - FastAdminÊï∞ÊçÆÂ∫ìË°®ÁªìÊûÑ
 -- ----------------------------
 
--- ----------------------------
--- ±Ì«∞◊∫: fa_ruyi_
--- ----------------------------
-
-DROP TABLE IF EXISTS a_oem;
-CREATE TABLE a_oem (
+DROP TABLE IF EXISTS a_ruyi_oem;
+CREATE TABLE a_ruyi_oem (
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
   
-ame varchar(50) NOT NULL COMMENT 'OEM√˚≥∆',
+ame varchar(50) NOT NULL,
   	itle varchar(100) DEFAULT NULL,
-  logo varchar(255) DEFAULT NULL,
-  oem_css text,
-  oem_js text,
-  contact_qq varchar(20) DEFAULT NULL,
-  contact_wechat varchar(50) DEFAULT NULL,
   status tinyint(1) DEFAULT 1,
   create_time int(11) DEFAULT NULL,
-  update_time int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY 
-ame (
-ame)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='OEM≈‰÷√';
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='OEMÈÖçÁΩÆ';
 
-DROP TABLE IF EXISTS a_user;
-CREATE TABLE a_user (
+DROP TABLE IF EXISTS a_ruyi_member;
+CREATE TABLE a_ruyi_member (
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
   username varchar(50) NOT NULL,
   password varchar(32) NOT NULL,
-  email varchar(100) DEFAULT NULL,
   mobile varchar(20) DEFAULT NULL,
-  vatar varchar(255) DEFAULT NULL,
   alance decimal(10,2) DEFAULT 0.00,
-  points int(11) DEFAULT 0,
   ip_level tinyint(1) DEFAULT 0,
   ip_expire_time int(11) DEFAULT NULL,
-  last_login_time int(11) DEFAULT NULL,
-  last_login_ip varchar(50) DEFAULT NULL,
   status tinyint(1) DEFAULT 1,
   create_time int(11) DEFAULT NULL,
-  update_time int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY username (username)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='”√ªß';
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Áî®Êà∑';
 
-DROP TABLE IF EXISTS a_server;
-CREATE TABLE a_server (
+DROP TABLE IF EXISTS a_ruyi_server;
+CREATE TABLE a_ruyi_server (
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
   
 ame varchar(100) NOT NULL,
@@ -56,59 +36,15 @@ ame varchar(100) NOT NULL,
   country_name varchar(50) DEFAULT NULL,
   ip varchar(50) DEFAULT NULL,
   port int(11) DEFAULT 80,
-  	ype varchar(20) DEFAULT 'game',
-  game_ids varchar(255) DEFAULT NULL,
-  description text,
-  speed varchar(20) DEFAULT NULL,
-  load tinyint(3) DEFAULT 0,
-  online int(11) DEFAULT 0,
-  status tinyint(1) DEFAULT 1,
   is_free tinyint(1) DEFAULT 0,
-  price decimal(10,2) DEFAULT 0.00,
-  sort int(11) DEFAULT 0,
-  create_time int(11) DEFAULT NULL,
-  update_time int(11) DEFAULT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='∑˛ŒÒ∆˜';
-
-DROP TABLE IF EXISTS a_game;
-CREATE TABLE a_game (
-  id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  
-ame varchar(100) NOT NULL,
-  ename varchar(100) DEFAULT NULL,
-  icon varchar(255) DEFAULT NULL,
-  cover varchar(255) DEFAULT NULL,
-  category varchar(20) DEFAULT NULL,
-  	ags varchar(255) DEFAULT NULL,
-  description text,
-  official_website varchar(255) DEFAULT NULL,
-  hot_level tinyint(3) DEFAULT 0,
   status tinyint(1) DEFAULT 1,
   sort int(11) DEFAULT 0,
   create_time int(11) DEFAULT NULL,
-  update_time int(11) DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='”Œœ∑';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ÊúçÂä°Âô®';
 
-DROP TABLE IF EXISTS a_order;
-CREATE TABLE a_order (
-  id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  order_no varchar(32) NOT NULL,
-  user_id int(11) NOT NULL,
-  mount decimal(10,2) NOT NULL,
-  pay_type varchar(20) DEFAULT NULL,
-  	rade_no varchar(64) DEFAULT NULL,
-  status tinyint(1) DEFAULT 0,
-  pay_time int(11) DEFAULT NULL,
-  create_time int(11) DEFAULT NULL,
-  update_time int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY order_no (order_no)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='∂©µ•';
-
-DROP TABLE IF EXISTS a_package;
-CREATE TABLE a_package (
+DROP TABLE IF EXISTS a_ruyi_package;
+CREATE TABLE a_ruyi_package (
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
   
 ame varchar(50) NOT NULL,
@@ -121,75 +57,8 @@ ame varchar(50) NOT NULL,
   sort int(11) DEFAULT 0,
   create_time int(11) DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Ã◊≤Õ';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Â•óÈ§ê';
 
-DROP TABLE IF EXISTS a_user_package;
-CREATE TABLE a_user_package (
-  id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  user_id int(11) NOT NULL,
-  package_id int(11) NOT NULL,
-  days int(11) DEFAULT NULL,
-  expire_time int(11) DEFAULT NULL,
-  status tinyint(1) DEFAULT 1,
-  create_time int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  KEY user_id (user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='”√ªßÃ◊≤Õ';
-
-DROP TABLE IF EXISTS a_speed_record;
-CREATE TABLE a_speed_record (
-  id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  user_id int(11) NOT NULL,
-  server_id int(11) DEFAULT NULL,
-  game_id int(11) DEFAULT NULL,
-  ip varchar(50) DEFAULT NULL,
-  start_time int(11) DEFAULT NULL,
-  end_time int(11) DEFAULT NULL,
-  duration int(11) DEFAULT 0,
-  status tinyint(1) DEFAULT 1,
-  PRIMARY KEY (id),
-  KEY user_id (user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='º”ÀŸº«¬º';
-
-DROP TABLE IF EXISTS a_notice;
-CREATE TABLE a_notice (
-  id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  	itle varchar(100) NOT NULL,
-  content text,
-  	ype varchar(20) DEFAULT 'notice',
-  iews int(11) DEFAULT 0,
-  status tinyint(1) DEFAULT 1,
-  create_time int(11) DEFAULT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='π´∏Ê';
-
--- ≥ı º ˝æ›
-INSERT INTO a_oem (
-ame, 	itle, status, create_time) VALUES ('default', '»Ò“∞”≈…Ãº”ÀŸ∆˜', 1, UNIX_TIMESTAMP());
-
-INSERT INTO a_package (
-ame, description, price, original_price, days, is_recommend, status, sort, create_time) VALUES 
-('»’ø®', '”––ß∆⁄1ÃÏ', 2.00, 5.00, 1, 0, 1, 1, UNIX_TIMESTAMP()),
-('÷‹ø®', '”––ß∆⁄7ÃÏ', 10.00, 20.00, 7, 0, 1, 2, UNIX_TIMESTAMP()),
-('‘¬ø®', '”––ß∆⁄30ÃÏ', 30.00, 60.00, 30, 1, 1, 3, UNIX_TIMESTAMP()),
-('ºæø®', '”––ß∆⁄90ÃÏ', 80.00, 150.00, 90, 0, 1, 4, UNIX_TIMESTAMP()),
-('ƒÍø®', '”––ß∆⁄365ÃÏ', 280.00, 500.00, 365, 0, 1, 5, UNIX_TIMESTAMP());
-
-INSERT INTO a_server (
-ame, country, country_name, ip, 	ype, is_free, status, sort, create_time) VALUES 
-('œ„∏€-01', 'HK', '÷–π˙œ„∏€', 'hk01.ruiye.top', 'game', 1, 1, 1, UNIX_TIMESTAMP()),
-('œ„∏€-02', 'HK', '÷–π˙œ„∏€', 'hk02.ruiye.top', 'game', 0, 1, 2, UNIX_TIMESTAMP()),
-('»’±æ-01', 'JP', '»’±æ', 'jp01.ruiye.top', 'game', 1, 1, 3, UNIX_TIMESTAMP()),
-('∫´π˙-01', 'KR', '∫´π˙', 'kr01.ruiye.top', 'game', 0, 1, 4, UNIX_TIMESTAMP()),
-('√¿π˙-01', 'US', '√¿π˙', 'us01.ruiye.top', 'game', 0, 1, 5, UNIX_TIMESTAMP());
-
-INSERT INTO a_game (
-ame, ename, category, status, sort, create_time) VALUES 
-('”¢–€¡™√À', 'League of Legends', 'pc', 1, 1, UNIX_TIMESTAMP()),
-('æ¯µÿ«Û…˙', 'PUBG', 'pc', 1, 2, UNIX_TIMESTAMP()),
-('Valorant', 'Valorant', 'pc', 1, 3, UNIX_TIMESTAMP()),
-('Steam', 'Steam', 'pc', 1, 4, UNIX_TIMESTAMP()),
-('’ΩÕ¯', 'Battle.net', 'pc', 1, 5, UNIX_TIMESTAMP());
-
-
-
+INSERT INTO a_ruyi_package VALUES (1,'Êó•Âç°','ÊúâÊïàÊúü1Â§©',2.00,5.00,1,0,1,1,UNIX_TIMESTAMP());
+INSERT INTO a_ruyi_package VALUES (2,'Âë®Âç°','ÊúâÊïàÊúü7Â§©',10.00,20.00,7,0,1,2,UNIX_TIMESTAMP());
+INSERT INTO a_ruyi_package VALUES (3,'ÊúàÂç°','ÊúâÊïàÊúü30Â§©',30.00,60.00,30,1,1,3,UNIX_TIMESTAMP());
