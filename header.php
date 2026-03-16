@@ -32,7 +32,7 @@ $productdata = $productdata ?? array("title"=>"锐野优商加速器","logo"=>"/
       <div class="logo"><?php echo $productdata['title'];?></div>
       <nav class="nav">
         <a href="/" <?php echo $current_page=='index'?'class="active"':'';?>>首页</a>
-        <a href="/game.php">游戏</a>
+        <a href="/game.php" <?php echo $current_page=='game'?'class="active"' : '';?>>游戏</a>
         <a href="/server.php" <?php echo $current_page=='server'?'class="active"':'';?>>服务器</a>
         <a href="/pay.php" <?php echo $current_page=='pay'?'class="active"':'';?>>充值</a>
         <a href="/appload.php" <?php echo $current_page=='download'?'class="active"':'';?>>下载</a>
