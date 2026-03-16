@@ -1,452 +1,95 @@
 ﻿<?
-$debug = time();// 棰勯槻js鍜宑ss缂撳瓨
+header('Content-Type: text/html; charset=utf-8');
+require_once('../../api/Mock.php');
+$productdata = get_oem_config();
+$packages = get_packages();
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>鍏呭€?/title>
-  <!-- 璇峰嬁鍦ㄩ」鐩寮忕幆澧冧腑寮曠敤璇?layui.css 鍦板潃 -->
-  <link href="../../static/layui/css/layui.css" rel="stylesheet">
-  <link href="../../static/css/color_map.css?V1.0" rel="stylesheet"><!-- 棰滆壊澶у叏 -->
-  <link href="../../static/css/style.css?<?echo $debug;?>" rel="stylesheet">
-</head>
-<body class="pay_page_body" style="display: none;">
-
-
-<div class="layui-form" lay-filter="form-demo-skin">
+  <meta charset=\"utf-8\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+  <title>充值中心 - <?php echo $productdata['title'];?></title>
+  <link href=\"../../static/layui/css/layui.css\" rel=\"stylesheet\">
+  <link href=\"../../static/css/style.css\" rel=\"stylesheet\">
   <style>
-  /*
-   * 鍩轰簬澶嶉€夋鍜屽崟閫夋鐨勫崱鐗囬鏍煎閫夌粍浠?   * 闇€瑕佸叿澶囦竴浜涘熀纭€鐨?CSS 鎶€鑳斤紝浠ヤ笅鏍峰紡鍧囦负澶栭儴鑷富瀹炵幇銆?   */
-   
-   .pay_page_body{
-           overflow: hidden;
-   }
-   
-  /* 涓讳綋 */
-  .layui-form-checkbox>.lay-skin-checkcard,
-  .layui-form-radio>.lay-skin-checkcard {
-    display: table;
-    display: flex;
-    padding: 12px;
-    white-space: normal;
-    border-radius: 10px;
-    border: 1px solid #e5e5e5;
-    color: #000;
-    background-color: #fff;
-  }
-  .layui-form-checkbox>.lay-skin-checkcard>*,
-  .layui-form-radio>.lay-skin-checkcard>* {
-    /* display: table-cell; */  /* IE */
-    vertical-align: top;
-  }
-  /* 鎮仠 */
-  .layui-form-checkbox:hover>.lay-skin-checkcard,
-  .layui-form-radio:hover>.lay-skin-checkcard {
-    border-color: #1e9fff;
-  }
-  /* 閫変腑 */
-  .layui-form-checked>.lay-skin-checkcard,
-  .layui-form-radioed[lay-skin="none"]>.lay-skin-checkcard {
-    color: #fff;
-    border-color: #1e9fff;
-    background-color: #1e9fff40 !important;
-    /* box-shadow: 0 0 0 3px rgba(22, 183, 119, 0.08); */
-  }
-  /* 绂佺敤 */
-  .layui-checkbox-disabled>.lay-skin-checkcard,
-  .layui-radio-disabled>.lay-skin-checkcard {
-    box-shadow: none;
-    border-color: #e5e5e5 !important;
-    background-color: #eee !important;
-  }
-  /* card 甯冨眬 */
-  .lay-skin-checkcard-avatar {
-    padding-right: 8px;
-  }
-  .lay-skin-checkcard-detail {
-    overflow: hidden;
-    width: 100%;
-  }
-  .lay-skin-checkcard-header {
-    font-weight: 500;
-    font-size: 16px;
-    white-space: nowrap;
-    margin-bottom: 4px;
-  }
-  .lay-skin-checkcard-description {
-    font-size: 13px;
-    color: #fff;
-  }
-  .layui-disabled  .lay-skin-checkcard-description{
-    color: #c2c2c2! important;
-  }
-  /* 閫変腑 dot */
-  .layui-form-checked>.lay-check-dot:after,
-  .layui-form-radioed>.lay-check-dot:after {
-    position: absolute;
-    content: "";
-    top: 2px;
-    right: 2px;
-    width: 0;
-    height: 0;
-    display: inline-block;
-    vertical-align: middle;
-    border-width: 10px;
-    border-style: dashed;
-    border-color: transparent;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 6px;
-    border-top-color: #1e9fff;
-    border-top-style: solid;
-    border-right-color: #1e9fff;
-    border-right-style: solid;
-    overflow: hidden;
-  }
-  .layui-checkbox-disabled>.lay-check-dot:after,
-  .layui-radio-disabled>.lay-check-dot:after {
-    border-top-color: #d2d2d2;
-    border-right-color: #d2d2d2;
-  }
-  /* 閫変腑 dot-2 */
-  .layui-form-checked>.lay-check-dot-2:before,
-  .layui-form-radioed>.lay-check-dot-2:before {
-    position: absolute;
-    font-family: "layui-icon";
-    content: "\e605";
-    color: #fff;
-    bottom: 4px;
-    right: 3px;
-    font-size: 9px;
-    z-index: 12;
-  }
-  .layui-form-checked>.lay-check-dot-2:after,
-  .layui-form-radioed>.lay-check-dot-2:after {
-    position: absolute;
-    content: "";
-    bottom: 2px;
-    right: 2px;
-    width: 0;
-    height: 0;
-    display: inline-block;
-    vertical-align: middle;
-    border-width: 10px;
-    border-style: dashed;
-    border-color: transparent;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 0px;
-    border-right-color: #1e9fff;
-    border-right-style: solid;
-    border-bottom-color: #1e9fff;
-    border-bottom-style: solid;
-    overflow: hidden;
-  }
-  .layui-checkbox-disabled>.lay-check-dot-2:before,
-  .layui-radio-disabled>.lay-check-dot-2:before {
-    color: #eee !important;
-  }
-  .layui-checkbox-disabled>.lay-check-dot-2:after,
-  .layui-radio-disabled>.lay-check-dot-2:after {
-    border-bottom-color: #d2d2d2;
-    border-right-color: #d2d2d2;
-  }
-  .lay-ellipsis-multi-line {
-    overflow: hidden;
-    word-break: break-all;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  }
-</style>
-<!-- 鏍囩椋庢牸 -->
-<style>
-  .layui-form-radio>.lay-skin-tag,
-  .layui-form-checkbox>.lay-skin-tag {
-    font-size: 13px;
-    border-radius: 100px;
-  }
-  .layui-form-checked>.lay-skin-tag,
-  .layui-form-radioed>.lay-skin-tag {
-    color: #fff !important;
-    background-color: #16b777 !important;
-  }
-</style>
-<!-- 鍗曢€夋 Color Picker -->
-<style>
-  /* 涓讳綋 */
-  .layui-form-radio>.lay-skin-color-picker {
-    border-radius: 50%;
-    border-width: 1px;
-    border-style: solid;
-    width: 20px;
-    height: 20px;
-  }
-  /* 閫変腑 */
-  .layui-form-radioed>.lay-skin-color-picker {
-    box-shadow: 0 0 0 1px #ffffff, 0 0 0 4px currentColor;
-  }
-  .title1{
-    margin: 22px 32px 0px;
-  }
-  .layui-form-checkbox[lay-skin=none], .layui-form-radio[lay-skin=none] {
-    position: relative;
-    min-height: 20px;
-    margin: 4px;
-    padding: 0;
-    height: auto;
-    line-height: normal;
-}
-h1{
-    font-size: 24px;
-}
-
-.layui-elem-quote {
-    margin-bottom: 10px;
-    padding: 15px;
-    line-height: 1.8;
-    border-left: 5px solid #1e9fff;
-    border-radius: 0 2px 2px 0;
-    background-color: #4343436b;
-    position: absolute;
-    width: 610px;
-    left: 26px;
-    bottom: 18px;
-}
-
-tip{
-        background: red;
-    position: absolute;
-    padding: 2px 8px;
-    border-radius: 37px;
-    font-size: 10px;
-    top: -8px;
-    right: 12px;
-    
-}
-
-paybox .radio {
-    position: absolute;
-    bottom: 215px;
-    right: 170px;
-}
-
-paybox money{
-    font-size: 26px;
-    color: #38cbff;
-}
-
-paybox .money{
-    position: absolute;
-    bottom: 156px;
-    right: 192px;
-}
-
-paybox time{
-    font-size: 26px;
-    color: #38cbff;
-}
-
-paybox .time{
-    position: absolute;
-    bottom: 194px;
-    right: 192px;
-}
-
-paybox .qrcode{
-    width: 128px;
-    height: 128px;
-    background: white;
-    position: absolute;
-    top: 178px;
-    right: 28px;
-    padding: 6px;
-}
-
-paybox .paylogo{
-    width: 21px;
-}
-
-
-.layui-input, .layui-select, .layui-textarea {
-    height: 38px;
-    line-height: 1.3;
-    line-height: 38px \9;
-    border-width: 1px;
-    border-style: solid;
-    background-color: #434343;
-    color: rgba(0, 0, 0, .85);
-    border-radius: 2px;
-    color: white;
-}
-
-
-
-</style>
- 
-  <h3 class="title1">璐拱鏃堕暱</h3>
-  <div class="layui-row layui-col-space8">
-    
-    <div class="layui-row" style="margin: 12px 24px 0px;">
-        
-        
-        <div class="layui-col-xs3">
-          <input type="radio" name="radio1" value="chrome" lay-skin="none" checked>
-          <div lay-radio class="lay-skin-checkcard lay-check-dot-2" style="height: 100px">
-            <div class="lay-skin-checkcard-detail">
-              <div class="lay-skin-checkcard-header">鏋佺嫄骞村崱</div>
-              <div class="lay-skin-checkcard-description lay-ellipsis-multi-line">
-                <h1>3鍏?鏈?/h1>
-                <p>36鍏?/p>
-                
-                <tip>闄愯喘涓€娆?/tip>
-                
-                <p><br>锐野优商-------鍗犱綅瀛楃涓?/p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        
-        
-        
-        
-        
-        
-        <div class="layui-col-xs3">
-          <input type="radio" name="radio1" value="chrome" lay-skin="none">
-          <div lay-radio class="lay-skin-checkcard lay-check-dot-2" style="height: 100px">
-            <div class="lay-skin-checkcard-detail">
-              <div class="lay-skin-checkcard-header">鏋佺嫄鍗婂勾鍗?/div>
-              <div class="lay-skin-checkcard-description lay-ellipsis-multi-line">
-                <h1>4.98鍏?鏈?/h1>
-                <p>29.9鍏?/p>
-                
-                <tip>鍑犱箮鎴愭湰</tip>
-                
-                <p><br>锐野优商-------鍗犱綅瀛楃涓?/p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        
-        <div class="layui-col-xs3">
-          <input type="radio" name="radio1" value="chrome" lay-skin="none">
-          <div lay-radio class="lay-skin-checkcard lay-check-dot-2" style="height: 100px">
-            <div class="lay-skin-checkcard-detail">
-              <div class="lay-skin-checkcard-header">鏋佺嫄瀛ｅ崱</div>
-              <div class="lay-skin-checkcard-description lay-ellipsis-multi-line">
-                <h1>6.63鍏?鏈?/h1>
-                <p>19.9鍏?/p>
-                
-                
-                <tip>鎶涘幓鎴愭湰杩樿</tip>
-                <p><br>锐野优商-------鍗犱綅瀛楃涓?/p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        
-        <div class="layui-col-xs3">
-          <input type="radio" name="radio1" value="chrome" lay-skin="none">
-          <div lay-radio class="lay-skin-checkcard lay-check-dot-2" style="height: 100px">
-            <div class="lay-skin-checkcard-detail">
-              <div class="lay-skin-checkcard-header">鏋佺嫄鏈堝崱</div>
-              <div class="lay-skin-checkcard-description lay-ellipsis-multi-line">
-                <!-- 浠嬬粛寮€濮?-->
-                
-                <h1>9.9鍏?鏈?/h1>
-                <p>9.9鍏?/p>
-                
-                <tip>灏忚禋</tip>
-                <!-- 浠嬬粛缁撴潫 -->
-                <p><br>锐野优商-------鍗犱綅瀛楃涓?/p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        
-        
-        
-        
-        <paybox>
-            <!--<div class="radio">-->
-            <!--  <input type="radio" name="AAA" value="1" title="浣跨敤浼樻儬浠锋敮浠? checked>-->
-            <!--  <input type="radio" name="AAA" value="2" title="鏀寔鏋佺嫄鍘熶环鏀粯"> -->
-            <!--</div>-->
-            <div class="layui-col-xs3" style="
-    position: absolute;
-    right: 199px;
-    top: 188px;
-">
-                <div class="layui-form-item" style="margin-bottom: 0;">
-                  <!--<label class="layui-form-label">浼樻儬鍒?:</label>-->
-                     <select>
-                      <!--<option value="">璇烽€夋嫨</option>-->
-                      <!--<option value="AAA">閫夐」 A</option>-->
-                      <!--<option value="BBB">閫夐」 B</option>-->
-                      <option value="CCC" selected>淇濇湰鍗锋鍚岃浼樻儬鍒?/option>
-                    </select>
-                </div>
-            </div>
-            
-            <h2 class="time">
-                濂楅鏈夋晥鏈?<time>366</time> 澶?            </h2>
-            
-            
-            <h2 class="money">
-                <img src="../../static/img/alipay.png" class="paylogo">
-                <img src="../../static/img/wechatpay.png" class="paylogo">
-                鎵爜鏀粯 <money>36</money> 鍏?            </h2>
-            
-            
-            <div class="qrcode"></div>
-            
-        <paybox>
-        
-        
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#0a0a0a;color:#fff;min-height:100vh;}
+  .header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:15px 0;position:sticky;top:0;z-index:100;}
+  .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+  .header .container{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-size:20px;font-weight:bold;color:#667eea;}
+  .nav{display:flex;gap:30px;}
+  .nav a{color:#fff;text-decoration:none;opacity:0.8;transition:0.3s;}
+  .nav a:hover,.nav a.active{opacity:1;color:#667eea;}
+  .user-area{display:flex;gap:15px;}
+  .user-area a{padding:8px 20px;border-radius:20px;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;}
+  .page-title{font-size:32px;font-weight:bold;margin:40px 0;text-align:center;}
+  .package-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;padding:20px;}
+  .package-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:15px;padding:30px;text-align:center;transition:0.3s;cursor:pointer;}
+  .package-card:hover,.package-card.selected{border-color:#667eea;background:rgba(102,126,234,0.1);}
+  .package-card.recommend{position:relative;}
+  .package-card.recommend::before{content:'推荐';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#667eea;padding:2px 12px;border-radius:10px;font-size:12px;}
+  .package-name{font-size:24px;font-weight:bold;margin-bottom:15px;}
+  .package-price{font-size:32px;color:#667eea;font-weight:bold;}
+  .package-price span{font-size:14px;opacity:0.6;}
+  .package-desc{font-size:14px;opacity:0.6;margin:10px 0;}
+  .buy-btn{display:block;width:100%;padding:15px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;text-align:center;border-radius:10px;text-decoration:none;margin-top:20px;font-weight:bold;}
+  .qr-section{text-align:center;padding:40px;margin-top:40px;background:rgba(255,255,255,0.05);border-radius:15px;}
+  .qr-code{width:200px;height:200px;background:#fff;margin:20px auto;border-radius:10px;}
+  .footer{background:rgba(0,0,0,0.5);padding:30px 0;text-align:center;margin-top:60px;}
+  </style>
+</head>
+<body>
+  <div class=\"header\">
+    <div class=\"container\">
+      <div class=\"logo\"><?php echo $productdata['title'];?></div>
+      <div class=\"nav\">
+        <a href=\"../../index.php\">首页</a>
+        <a href=\"../server/server_list.php\">服务器</a>
+        <a href=\"pay.php\" class=\"active\">充值</a>
+        <a href=\"../load/appload.php\">下载</a>
+      </div>
+      <div class=\"user-area\">
+        <a href=\"../oauth/login_home.php\">登录</a>
+      </div>
     </div>
-    <blockquote class="layui-elem-quote">濡傛灉鎮ㄥ彲浠ヨ鐪嬪箍鍛婏紝鎮ㄥ彲浠ヤ緷鏃ч€氳繃骞垮憡鐪嬪箍鍛婃柟寮忚幏鍙栨椂闀匡紝鎴戜滑涔熸帹鑽愭偍瑙傜湅骞垮憡鑾峰彇鏃堕暱锛屽鏋滄偍鐪熺殑涓嶈兘瑙傜湅骞垮憡锛屾湅鍙嬩篃鏃犳硶甯姪鎮ㄧ殑鍚屾椂锛屾偍鍙互鑰冭檻鏀寔涓€涓嬫垜浠紝杩欎釜浠锋牸鍩烘湰涓婃槸鎴愭湰浠凤紝绠椾笂鐢佃垂鍟ョ殑鏈€渚垮疁鐨勪竴妗ｉ暱鏈熺敤娌″噯杩樹簭浜?/blockquote>
-
-
-
   </div>
-
-
-</div>
   
-
-
-
+  <div class=\"container\">
+    <h1 class=\"page-title\">充值中心</h1>
+    
+    <div class=\"package-grid\">
+      <?php foreach($packages as $p):?>
+      <div class=\"package-card <?php echo isset($p['is_recommend']) && $p['is_recommend']?'recommend':'';?>\">
+        <div class=\"package-name\"><?php echo $p['name'];?></div>
+        <div class=\"package-price\">￥<?php echo $p['price'];?><span>/<?php echo $p['days'];?>天</span></div>
+        <div class=\"package-desc\"><?php echo $p['description'];?></div>
+        <div style=\"font-size:12px;opacity:0.5;text-decoration:line-through;\">原价:￥<?php echo $p['original_price'];?></div>
+        <a href=\"#\" class=\"buy-btn\" onclick=\"selectPackage(<?php echo $p['id'];?>,<?php echo $p['price'];?>)\">立即购买</a>
+      </div>
+      <?php endforeach;?>
+    </div>
+    
+    <div class=\"qr-section\" id=\"qrSection\" style=\"display:none;\">
+      <h2>扫码支付 <span id=\"payAmount\">0</span> 元</h2>
+      <div class=\"qr-code\">
+        <img src=\"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=mock-pay\" alt=\"支付二维码\" style=\"width:100%;\">
+      </div>
+      <p style=\"margin-top:20px;\">请使用支付宝/微信扫码支付</p>
+      <p style=\"opacity:0.6;margin-top:10px;\">支付完成后请联系客服确认</p>
+    </div>
+  </div>
   
-<!-- 璇峰嬁鍦ㄩ」鐩寮忕幆澧冧腑寮曠敤璇?layui.js 鍦板潃 -->
-<script src="../../static/layui/layui.js"></script> 
-<script src="../../static/js/jquery-3.7.1.min.js"></script>
-
-<script src="../../static/js/jquery.qrcode.min.js"></script><!-- 浜岀淮鐮?-->
-
-<script>
-    $(function() {
-        $("body").show();
-        //鐢熸垚100*100(瀹藉害100锛岄珮搴?00)鐨勪簩缁寸爜
-        $('.qrcode').qrcode({
-            render: "canvas", //涔熷彲浠ユ浛鎹负table
-            width: 128,
-            height: 128,
-            text: "https://www.bilibili.com/video/BV1GJ411x7h7/?"
-        });
-    })
-</script>
-
+  <div class=\"footer\">
+    <p>&copy; 2024 <?php echo $productdata['title'];?> 版权所有</p>
+  </div>
+  
+  <script>
+  function selectPackage(id, price) {
+    document.getElementById('payAmount').innerText = price;
+    document.getElementById('qrSection').style.display = 'block';
+  }
+  </script>
 </body>
 </html>
-
