@@ -3,7 +3,7 @@
 -- ----------------------------
 
 -- ----------------------------
--- 表前缀: ruiy_
+-- 表前缀: fa_ruyi_
 -- ----------------------------
 
 DROP TABLE IF EXISTS a_oem;
@@ -190,5 +190,6 @@ ame, ename, category, status, sort, create_time) VALUES
 ('Valorant', 'Valorant', 'pc', 1, 3, UNIX_TIMESTAMP()),
 ('Steam', 'Steam', 'pc', 1, 4, UNIX_TIMESTAMP()),
 ('战网', 'Battle.net', 'pc', 1, 5, UNIX_TIMESTAMP());
+
 
 
